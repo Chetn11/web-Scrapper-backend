@@ -10,6 +10,12 @@ app.use(express.json());
 
 
 let articles=[]; // to store articles
+
+app.get("/",(req,res)=>{
+  res.status(200).json({Message:"Web Scrapper Api", PostEndpoint:"url/scrape",
+    getEndpoint:"url/articles"
+  })
+})
 app.post('/scrape', async (req, res) => {
   const { value } = req.body;
   if (!value) {
@@ -28,7 +34,7 @@ app.get("/articles", async (req, res) => {
   res.status(200).json(articles);
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
