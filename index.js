@@ -1,6 +1,8 @@
 const express = require('express');
 const scrapData = require('./Scrapper');
 var cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 
 
 const app = express();
@@ -9,7 +11,24 @@ app.use(express.json());
 
 
 
-let articles=[]; // to store articles
+const articlesFilePath = path.join(__dirname, 'articles.json');
+
+
+const loadArticles = () => {
+  if (fs.existsSync(articlesFilePath)) {
+    const data = fs.readFileSync(articlesFilePath, 'utf-8');
+    return JSON.parse(data);
+  }
+  return [];
+};
+
+const saveArticles = (articles) => {
+  fs.writeFileSync(articlesFilePath, JSON.stringify(articles, null, 2));
+};
+
+let articles = loadArticles()
+
+
 
 app.get("/",(req,res)=>{
   res.status(200).json({Message:"Web Scrapper Api", PostEndpoint:"url/scrape",
@@ -24,6 +43,7 @@ app.post('/scrape', async (req, res) => {
 
   try {
       articles = await scrapData(value);
+      saveArticles(articles);
       res.status(200).json(articles);
   } catch (error) {
       res.status(500).json({ error: 'Error while getting articles' });
