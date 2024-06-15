@@ -25,6 +25,7 @@ app.post('/scrape', async (req, res) => {
   }
 
   try {
+    console.log(value);
     articles = await scrapData(value);
     await ArticleModel.deleteMany({});
     const data = await ArticleModel.insertMany(articles);
