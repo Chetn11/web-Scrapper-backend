@@ -17,6 +17,7 @@
     "express": "^4.19.2",
     "jquery": "^3.7.1",
     "jsdom": "^24.1.0",
+    "mongoose": "^8.4.1",
     "puppeteer": "^22.11.0"
   }
 }

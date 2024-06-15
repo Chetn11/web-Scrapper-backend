@@ -26,9 +26,9 @@ const scrapData = async (value) => {
       const description = element.querySelector('h3').innerText;
       const link = element.getAttribute('data-href');
       const author = element.querySelector('a[href^="/@"] p').innerText;
-      const id=crypto.randomUUID(); // to generate id
+      // const id=crypto.randomUUID(); // to generate id
 
-      results.push( {id,title, description, link, author})
+      results.push( {title, description, link, author})
     });
    
     return results;
